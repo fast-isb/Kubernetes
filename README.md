@@ -13,3 +13,4 @@ We will build a <strong>Sports Web App</strong> that allows you creating sports 
 * Sign UP for event in order to participate
 * Upload images to the server
 * Website notification using web sockets (in order to approve or refuse the Event Sign UP request) 
+taimoor
