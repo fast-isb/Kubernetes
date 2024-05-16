@@ -1,29 +1,28 @@
-# Use a Node.js image as base
-FROM node:latest as build
+# Use the official Node.js 14 image as a base
+FROM node:14
 
-# Set the working directory inside the container
-WORKDIR /usr/src/app
+# Set the working directory in the container
+WORKDIR /app
 
-# Copy package.json and package-lock.json to the container
+# Copy package.json and package-lock.json
 COPY package*.json ./
-RUN npm cache clean --force
+
 # Install dependencies
 RUN npm install
 
-# Copy the rest of your application
+# Copy the rest of the application code
 COPY . .
 
-# Build the frontend
+# Build the React application
 RUN npm run build
 
-# Use nginx to serve the production build
+# Use nginx to serve the built files
 FROM nginx:alpine
 
-# Copy the build output from the previous stage to nginx's html directory
-COPY --from=build /usr/src/app/build /usr/share/nginx/html
+# Copy the built files from the previous stage
+COPY --from=0 /app/build /usr/share/nginx/html
 
-# Expose port 80 to serve the frontend
+# Expose the port nginx runs on
 EXPOSE 80
 
-# Nginx is already started by default in the nginx:alpine image
-# No need to define the CMD, it will serve the static files automatically
+# No CMD needed, nginx will run by default
