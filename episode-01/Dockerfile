@@ -1,9 +1,9 @@
 # Stage 1: Build the frontend
 FROM node:16 AS frontend-builder
-WORKDIR /app/frontend
-COPY frontend/package.json frontend/package-lock.json ./
+WORKDIR /app/fronted
+COPY fronted/package.json fronted/package-lock.json ./
 RUN npm install
-COPY frontend ./
+COPY fronted ./
 RUN npm run build
 
 # Stage 2: Build the backend
@@ -16,7 +16,7 @@ COPY backend ./
 # Stage 3: Final container
 FROM node:16
 WORKDIR /app
-COPY --from=frontend-builder /app/frontend/build ./frontend
+COPY --from=frontend-builder /app/fronted/build ./fronted
 COPY --from=backend-builder /app/backend ./
 EXPOSE 3000 8000
 CMD ["node", "src/server.js"]
