@@ -13,10 +13,10 @@ spec:
         app: episode01
     spec:
       containers:
-      - name: episode01-container
+      - name: episode03-container
         image: taimooranwar/episode-01:latest
         ports:
         - containerPort: 3000
         - containerPort: 8000
       nodeSelector:
-        kubernetes.io/hostname: assignment3-m02
+        kubernetes.io/hostname: minikube
